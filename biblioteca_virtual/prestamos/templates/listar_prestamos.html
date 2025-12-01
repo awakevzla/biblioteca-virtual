@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Prestamos
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center;">Pretamos</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Libro</th>
+        <th scope="col">Fecha prestamo</th>
+        <th scope="col">Fecha devolución</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prestamo in prestamos %}
+      <tr>
+        <th scope="row">{{ prestamo.pk }}</th>
+        <td>{{ prestamo.usuario.nombre }}</td>
+        <td>{{ prestamo.libro.titulo }}</td>
+        <td>{{ prestamo.fecha_prestamo|default_if_none:'N/A' }}</td>
+        <td>{{ prestamo.fecha_devolucion|default_if_none:'N/A' }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <a href="{% url 'prestamos:realizar_devolucion' prestamo.pk%}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres devolver este libro?')">Devolver</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+    <a href="{% url 'prestamos:crear_prestamo' %}" class="btn btn-success btn-lg">Realizar un prestamo</a>
+  </div>
+{% endblock %}

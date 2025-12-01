@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Users Home Page
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center;">Usuarios</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Fecha de Registro</th>
+        <th scope="col">Activo</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ user.correo }}</td>
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.edad }}</td>
+        <td>{{ user.fecha_registro }}</td>
+        <td>{% if user.activo %} Si {% else %} No {% endif %}</td>
+        <td>
+          <div class="btn-group" role="group">
+            <a href="{% url 'usuarios:eliminar_usuario' user.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">Delete</a>
+            <a href="{% url 'usuarios:editar_usuario' user.id %}" class="btn btn-warning">Editar</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+    <a href="{% url 'usuarios:crear_usuario' %}" class="btn btn-success btn-lg">Crear nuevo usuario</a>
+  </div>
+{% endblock %}
