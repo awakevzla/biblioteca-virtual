@@ -221,6 +221,20 @@ El proyecto incluye una configuración completa de Docker para desarrollo:
 
 Ver documentación completa en [README-Docker.md](README-Docker.md).
 
+## 🔄 CI/CD
+
+El proyecto incluye un pipeline simple de GitHub Actions que:
+
+✅ **Se ejecuta automáticamente** en Pull Requests y commits a main/develop  
+✅ **Configura PostgreSQL** para tests realistas  
+✅ **Ejecuta todas las pruebas** del proyecto  
+✅ **Valida las migraciones** de Django  
+
+### **Configuración:**
+1. Fork/clone el repositorio
+2. Actualiza el badge en README.md con tu usuario/repo
+3. ¡Listo! Los tests se ejecutarán automáticamente en PRs
+
 ## 🤝 Contribución
 
 1. Fork el proyecto
