@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+{{user.nombre}} Edit Page
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center;">Editar libro</h1>
+  <br>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <form method="POST" class="card shadow">
+          {% csrf_token %}
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Actualizar información de {{libro.titulo}}</h4>
+          </div>
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <label for="{{ form.titulo.id_for_label }}" class="form-label fw-semibold">{{ form.titulo.label }}</label>
+              <input type="text" placeholder="Titulo" class="form-control form-control-lg" id="{{ form.titulo.id_for_label }}" name="{{ form.titulo.html_name }}" value="{{ form.titulo.value|default_if_none:'' }}">
+            </div>
+            <div class="mb-3">
+              <label for="{{ form.autor.id_for_label }}" class="form-label fw-semibold">{{ form.autor.label }}</label>
+              <input type="text" placeholder="Autor" class="form-control form-control-lg" id="{{ form.autor.id_for_label }}" name="{{ form.autor.html_name }}" value="{{ form.autor.value|default_if_none:'' }}">
+            </div>
+            <div class="mb-3">
+              <label for="{{ form.fecha_publicacion.id_for_label }}" class="form-label fw-semibold">{{ form.fecha_publicacion.label }}</label>
+              <input type="date" placeholder="Fecha Publicacion" class="form-control form-control-lg" id="{{ form.fecha_publicacion.id_for_label }}" name="{{ form.fecha_publicacion.html_name }}" value="{{ form.fecha_publicacion.value|date:'Y-m-d'|default_if_none:'' }}">
+            </div>
+          </div>
+          <div class="card-footer bg-light">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <a href="{% url 'libros:libros' %}" class="btn btn-danger me-md-2">Cancelar</a>
+              <button type="submit" class="btn btn-primary px-4">Actualizar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

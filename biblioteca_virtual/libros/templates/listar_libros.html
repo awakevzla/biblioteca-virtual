@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Libros
+{% endblock %}
+
+{% block content %}
+  <h1 style="text-align: center;">Libros</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Fecha publicacion</th>
+        <th scope="col">Prestado</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for libro in libros %}
+      <tr>
+        <th scope="row">{{ libro.pk }}</th>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.fecha_publicacion }}</td>
+        <td>{% if libro.en_prestamo %}Si{% else %}No{% endif %}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <a href="{% url 'libros:eliminar_libro' libro.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este libro?')">Delete</a>
+            <a href="{% url 'libros:editar_libro' libro.id %}" class="btn btn-warning">Editar</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+    <a href="{% url 'libros:crear_libro' %}" class="btn btn-success btn-lg">Crear nuevo usuario</a>
+  </div>
+{% endblock %}
