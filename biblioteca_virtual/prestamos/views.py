@@ -24,7 +24,7 @@ def crear_prestamo(request):
   else:
     form = PrestamoForm()
     
-    return render(request, 'crear_prestamo.html', {'form': form})
+  return render(request, 'crear_prestamo.html', {'form': form})
 
 def realizar_devolucion(request, id):
   prestamo = get_object_or_404(Prestamo, id=id)
