@@ -84,14 +84,14 @@ WSGI_APPLICATION = 'biblioteca_virtual.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'biblioteca_virtual',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'ENGINE': os.environ["DB_ENGINE"],
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["DB_USER"],
+        'PASSWORD': os.environ["DB_PASSWORD"],
+        'HOST': os.environ["DB_HOST"],
+        'PORT': os.environ["DB_PORT"],
         'OPTIONS': {
-            'connect_timeout': 20,
+            'connect_timeout': os.environ["DB_TIMEOUT"],
         }
     }
 }
