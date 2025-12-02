@@ -29,6 +29,10 @@ def crear_prestamo(request):
 def realizar_devolucion(request, id):
   prestamo = get_object_or_404(Prestamo, id=id)
 
+  if prestamo.fecha_devolucion is not None:
+    messages.warning(request, 'Este préstamo ya ha sido devuelto.')
+    return redirect('prestamos:prestamos')
+
   libro = prestamo.libro
   prestamo.fecha_devolucion = timezone.now()
   prestamo.save()
