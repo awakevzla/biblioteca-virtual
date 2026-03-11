@@ -59,6 +59,29 @@ docker-compose exec web python biblioteca_virtual/manage.py createsuperuser
 docker-compose exec db psql -U postgres -d biblioteca_virtual
 ```
 
+## Testing
+
+```bash
+# Ejecutar todos los tests
+docker-compose exec web python biblioteca_virtual/manage.py test
+
+# Ejecutar tests específicos por app
+docker-compose exec web python biblioteca_virtual/manage.py test usuarios
+docker-compose exec web python biblioteca_virtual/manage.py test libros
+docker-compose exec web python biblioteca_virtual/manage.py test prestamos
+
+# Ejecutar test específico
+docker-compose exec web python biblioteca_virtual/manage.py test usuarios.tests.UsuarioModelTest
+
+# Usar el script runner de tests
+docker-compose exec web bash run_tests.sh
+
+# Tests con coverage
+docker-compose exec web pip install coverage
+docker-compose exec web coverage run --source='.' biblioteca_virtual/manage.py test
+docker-compose exec web coverage report
+```
+
 ## Limpieza
 
 ```bash

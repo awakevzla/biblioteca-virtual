@@ -122,13 +122,57 @@ DB_TIMEOUT=20
 
 ## 🧪 Testing
 
+El proyecto incluye un conjunto completo de tests unitarios para todos los componentes:
+
+### Ejecutar Tests
+
+**Con Docker:**
 ```bash
-# Con Docker
+# Ejecutar todos los tests
 docker-compose exec web python biblioteca_virtual/manage.py test
 
-# Local
+# Ejecutar tests específicos
+docker-compose exec web python biblioteca_virtual/manage.py test usuarios
+docker-compose exec web python biblioteca_virtual/manage.py test libros
+docker-compose exec web python biblioteca_virtual/manage.py test prestamos
+
+# Usar el script runner
+docker-compose exec web bash run_tests.sh
+```
+
+**Instalación Local:**
+```bash
+# Ejecutar todos los tests
 cd biblioteca_virtual
 python manage.py test
+
+# O usar el script runner
+./run_tests.sh
+```
+
+### Cobertura de Tests
+
+Los tests cubren:
+
+- **Modelos**: Creación, validaciones, métodos y relaciones
+- **Formularios**: Validación de datos y guardado
+- **Vistas**: GET/POST, redirecciones, mensajes y manejo de errores
+- **Integración**: Flujos completos de usuario
+
+**Apps con tests:**
+- `usuarios/tests.py` - 15+ casos de test
+- `libros/tests.py` - 15+ casos de test  
+- `prestamos/tests.py` - 15+ casos de test
+
+### Coverage Report
+
+Para generar un reporte de cobertura:
+
+```bash
+pip install coverage
+coverage run --source='.' manage.py test
+coverage report
+coverage html  # Genera reporte HTML en htmlcov/
 ```
 
 ## 📝 Apps del Proyecto
@@ -176,6 +220,20 @@ El proyecto incluye una configuración completa de Docker para desarrollo:
 - **entrypoint.sh**: Script de inicialización automática
 
 Ver documentación completa en [README-Docker.md](README-Docker.md).
+
+## 🔄 CI/CD
+
+El proyecto incluye un pipeline simple de GitHub Actions que:
+
+✅ **Se ejecuta automáticamente** en Pull Requests y commits a main/develop  
+✅ **Configura PostgreSQL** para tests realistas  
+✅ **Ejecuta todas las pruebas** del proyecto  
+✅ **Valida las migraciones** de Django  
+
+### **Configuración:**
+1. Fork/clone el repositorio
+2. Actualiza el badge en README.md con tu usuario/repo
+3. ¡Listo! Los tests se ejecutarán automáticamente en PRs
 
 ## 🤝 Contribución
 
